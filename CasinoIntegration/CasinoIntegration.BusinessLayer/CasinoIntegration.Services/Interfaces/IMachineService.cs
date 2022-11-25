@@ -1,9 +1,4 @@
 ﻿using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
 {
@@ -17,13 +12,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         Task ChangeMachineSlotsSize(string id, int newSize);
-
-        /// <summary>
-        ///Method for getting the machines size of slots array, creates an array of size SlotsSize, and fills it waith random integers (0-9) for each slot
-        /// </summary>
-        /// <param name="machine">A machine object from which to get the SlotsSize parameter</param>
-        /// <returns>an array filled with random integers</returns>
-        int[] ReturnSlotsArray(Machine machine);
 
         /// <summary>
         /// A method for getting machine by id

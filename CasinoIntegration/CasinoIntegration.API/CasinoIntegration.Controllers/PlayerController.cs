@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
 using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CasinoIntegration.API.Controllers

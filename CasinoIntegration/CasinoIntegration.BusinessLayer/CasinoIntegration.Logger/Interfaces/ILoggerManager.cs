@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces
+﻿namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces
 {
     public interface ILoggerManager
     {

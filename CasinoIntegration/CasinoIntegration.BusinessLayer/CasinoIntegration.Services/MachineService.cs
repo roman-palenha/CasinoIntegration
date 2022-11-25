@@ -1,13 +1,5 @@
 ﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
 
 namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
@@ -22,7 +14,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             _machineRepository = machineRepository;
         }
 
-      
         public async Task<(int[], double)> TakeBet(string machineId, double bet)
         {
             var machine = await _machineRepository.GetById(machineId);
@@ -39,8 +30,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return (resultArray,win);
         }
 
-
-        public int[] ReturnSlotsArray(Machine machine)
+        private int[] ReturnSlotsArray(Machine machine)
         {
             Random randNum = new Random();
 
@@ -51,8 +41,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 
             return slotsArray;
         }
-
-       
+      
         public async Task ChangeMachineSlotsSize(string id, int newSize)
         {
             var machine = await GetById(id);
@@ -66,8 +55,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 
             await _machineRepository.Update(machine);
         }
-
-        
+      
         public async Task<Machine> GetById(string id)
         {
             var result = await _machineRepository.GetById(id);
@@ -81,9 +69,8 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             var result = await _machineRepository.GetAllAsync();
 
             return result;
-        }
+        }    
 
-       
         public async Task Create(Machine machine)
         {
             if (machine == null || machine.SlotsSize < 0)

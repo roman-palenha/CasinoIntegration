@@ -1,17 +1,8 @@
 ﻿using AutoMapper;
 using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
 using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 {
