@@ -13,6 +13,12 @@ namespace CasinoIntegration.API.CasinoIntegrations.Middlewares
             _logger = logger;
             _next = next;
         }
+
+        /// <summary>
+        /// Invoke action
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -25,6 +31,13 @@ namespace CasinoIntegration.API.CasinoIntegrations.Middlewares
                 await HandleExceptionAsync(httpContext, ex);
             }
         }
+
+        /// <summary>
+        /// Handle exception
+        /// </summary>
+        /// <param name="context">HttpContext</param>
+        /// <param name="exception">Handled exception</param>
+        /// <returns></returns>
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";

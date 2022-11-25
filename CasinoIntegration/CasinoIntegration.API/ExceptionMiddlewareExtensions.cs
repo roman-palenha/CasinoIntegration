@@ -8,6 +8,11 @@ namespace CasinoIntegration.API
 {
     public static class ExceptionMiddlewareExtensions
     {
+        /// <summary>
+        /// Extension for configuring exception handler
+        /// </summary>
+        /// <param name="app">Our application builder</param>
+        /// <param name="logger">Loggere where information will be logged</param>
         public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
         {
             app.UseExceptionHandler(appError =>
