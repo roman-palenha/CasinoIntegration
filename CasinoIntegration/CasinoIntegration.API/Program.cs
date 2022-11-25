@@ -1,14 +1,14 @@
 using AutoMapper;
 using CasinoIntegration.API;
 using CasinoIntegration.BusinessLayer;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Services;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings.Interfaces;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces;
+using CasinoIntegration.BusinessLayer.Logger;
+using CasinoIntegration.BusinessLayer.Logger.Interfaces;
+using CasinoIntegration.BusinessLayer.Services;
+using CasinoIntegration.BusinessLayer.Services.Interfaces;
+using CasinoIntegration.DataAccessLayer.DatabaseSettings;
+using CasinoIntegration.DataAccessLayer.DatabaseSettings.Interfaces;
+using CasinoIntegration.DataAccessLayer.Repositories;
+using CasinoIntegration.DataAccessLayer.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using NLog;
 

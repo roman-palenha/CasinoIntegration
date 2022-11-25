@@ -1,8 +1,8 @@
-﻿using CasinoIntegration.API.CasinoIntegrations.Middlewares;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Response;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
+﻿using CasinoIntegration.API.Middlewares;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
+using CasinoIntegration.BusinessLayer.DTO.Response;
+using CasinoIntegration.BusinessLayer.Logger.Interfaces;
 
 namespace CasinoIntegration.API
 {
