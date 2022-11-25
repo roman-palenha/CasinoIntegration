@@ -12,7 +12,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
     {
         Task<Player> GetByNameAsync(string username);
         Task<IEnumerable<Player>> GetAllAsync();
-        Task CreateAsync(Player player);
+        Task<Player> CreateAsync(PlayerDTO playerDto);
         Task UpdateBalanceAsync(string username, double balance);
         Task DeleteAsync(Player player);
         Task<double> Bet(string username, double bet);
