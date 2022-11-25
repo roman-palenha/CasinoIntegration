@@ -22,6 +22,22 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             _machineRepository = machineRepository;
         }
 
+        public async Task<(int[], double)> TakeBet(string machineId, double bet)
+        {
+            var machine = await _machineRepository.GetById(machineId);
+
+            var resultArray = ReturnSlotsArray(machine);
+
+            var firstNumFromArray = resultArray[0];
+
+            var win = resultArray
+                .TakeWhile(x => x == firstNumFromArray)
+                .Sum(x => x)
+                * bet;
+
+            return (resultArray,win);
+        }
+
         public int[] ReturnSlotsArray(Machine machine)
         {
             Random randNum = new Random();

@@ -61,36 +61,11 @@ namespace CasinoIntegration.API.Controllers
         [Route("{username}/{machineId}/{bet}")]
         public async Task<IActionResult> Bet([FromRoute] string username, double bet, string machineId)
         {
-            var user = await _playerService.GetByNameAsync(username);
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
+            var balanceWithBet = await _playerService.Bet(username, bet);
+            var betResult = await _machineService.TakeBet(machineId, bet);
+            var result = await _playerService.ConfirmResultBet(betResult.Item1, balanceWithBet, betResult.Item2, username);
 
-            var newBalance = user.Balance - bet;
-            if (newBalance < 0)
-            {
-                return BadRequest("Negative balance");
-            }
-
-            var machine = await _machineService.GetById(machineId);
-
-            var resultArray = _machineService.ReturnSlotsArray(machine);
-
-            var firstNumFromArray = resultArray[0];
-
-            var win = resultArray
-                .TakeWhile(x => x == firstNumFromArray)
-                .Sum(x => x)
-                * bet;
-
-            newBalance += win;
-
-            await _playerService.UpdateBalanceAsync(username, newBalance);
-
-            var res = new SpinResult { Slots = resultArray, Balance = newBalance, Win = win };
-
-            return Ok(res);
+            return Ok(result);
         }
     }
 }

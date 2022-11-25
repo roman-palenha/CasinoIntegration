@@ -1,4 +1,5 @@
 ﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
@@ -21,6 +22,31 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
            IPlayerRepository playersRepository)
         {
             _playersRepository = playersRepository;
+        }
+
+        public async Task<SpinResult> ConfirmResultBet(int[] resultArray, double beforeBetBalance, double win, string username)
+        {
+            var afterWinBalance = beforeBetBalance + win;
+            await UpdateBalanceAsync(username, afterWinBalance);
+
+            return new SpinResult { Slots = resultArray, Balance = afterWinBalance, Win = win };
+        }
+
+        public async Task<double> Bet(string username, double bets)
+        {
+            var user = await _playersRepository.GetByNameAsync(username);
+            if (user == null)
+            {
+                throw new InvalidDataException("User not found");
+            }
+
+            var newBalance = user.Balance - bet;
+            if (newBalance < 0)
+            {
+                throw new InvalidOperationException("Negative balance");
+            }
+
+            return newBalance;
         }
 
         public async Task CreateAsync(Player player)

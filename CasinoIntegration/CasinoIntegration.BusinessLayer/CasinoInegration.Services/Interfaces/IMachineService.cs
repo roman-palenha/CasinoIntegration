@@ -14,5 +14,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
         Task<Machine> GetById(string id);
         Task Create(Machine machine);
         Task<IEnumerable<Machine>> GetAllAsync();
+        Task<(int[],double)> TakeBet(string machineId, double bet);
     }
 }

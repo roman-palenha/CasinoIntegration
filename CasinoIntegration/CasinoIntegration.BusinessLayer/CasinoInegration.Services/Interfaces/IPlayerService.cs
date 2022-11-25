@@ -1,4 +1,5 @@
-﻿using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
         Task CreateAsync(Player player);
         Task UpdateBalanceAsync(string username, double balance);
         Task DeleteAsync(Player player);
+        Task<double> Bet(string username, double bet);
+        Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username)
     }
 }
