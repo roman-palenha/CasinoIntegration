@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\CasinoIntegration.BusinessLayer\CasinoIntegration.BusinessLayer.csproj" />
   </ItemGroup>
 
 </Project>
