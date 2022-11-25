@@ -3,6 +3,8 @@ using CasinoIntegration.BusinessLayer.CasinoInegration.Services;
 using Microsoft.Extensions.Options;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings.Interfaces;
+using AutoMapper;
+using CasinoIntegration.BusinessLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,14 @@ builder.Services.AddSingleton<ICasinoIntegrationDatabaseSettings>(provider =>
 
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IMachineService, MachineService>();
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new Mappers());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

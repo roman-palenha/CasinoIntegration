@@ -1,4 +1,5 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+﻿using AutoMapper;
+using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
 using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,14 @@ namespace CasinoIntegration.API.Controllers
     {
         private readonly IPlayerService _playerService;
         private readonly IMachineService _machineService;
+        private readonly IMapper _mapper;
 
-        public PlayerController(IPlayerService playerService, IMachineService machineService)
+        public PlayerController(IPlayerService playerService, IMachineService machineService, IMapper mapper)
         {
             _playerService = playerService;
             _machineService = machineService;
-        }
+            _mapper = mapper;
+        }   
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -26,15 +29,11 @@ namespace CasinoIntegration.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterPlayer registerPlayer)
+        public async Task<IActionResult> Register(PlayerDTO registerPlayer)
         {
             try
             {
-                var player = new Player
-                {
-                    UserName = registerPlayer.UserName,
-                    Balance = registerPlayer.Balance
-                };
+                var player = _mapper.Map<Player>(registerPlayer);
                 await _playerService.CreateAsync(player);
                 return Ok(player);
             }
