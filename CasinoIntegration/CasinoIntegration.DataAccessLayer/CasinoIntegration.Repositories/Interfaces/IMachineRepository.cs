@@ -1,6 +1,6 @@
 ﻿using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 
-namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces
+namespace CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces
 {
     public interface IMachineRepository
     {

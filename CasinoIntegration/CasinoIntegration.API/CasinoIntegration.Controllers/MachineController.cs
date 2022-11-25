@@ -1,4 +1,4 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,7 @@ namespace CasinoIntegration.API.Controllers
 
         public MachineController(IMachineService machineService)
         {
-            _machineService = machineService;
+            _machineService = machineService ?? throw new ArgumentNullException(nameof(machineService));
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CasinoIntegration.API.Controllers
         [HttpPut]
         public async Task<IActionResult> ChangeMachine([FromBody] string id, int newSize)
         {
-            await _machineService.ChangeMachineSlotsSize(id, newSize);
+            await _machineService.ChangeSlotsSize(id, newSize);
             return Ok();
         }
 

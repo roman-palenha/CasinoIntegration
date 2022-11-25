@@ -1,16 +1,16 @@
 using AutoMapper;
+using CasinoIntegration.API;
 using CasinoIntegration.BusinessLayer;
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services;
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Services;
 using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings.Interfaces;
-using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories;
-using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using NLog;
-using CasinoIntegration.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

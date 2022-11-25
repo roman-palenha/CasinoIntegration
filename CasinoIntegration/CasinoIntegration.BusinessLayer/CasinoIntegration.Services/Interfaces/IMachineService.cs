@@ -1,6 +1,6 @@
 ﻿using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 
-namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
+namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces
 {
     public interface IMachineService
     {
@@ -11,7 +11,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
         /// <param name="newSize">the new size of machine</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        Task ChangeMachineSlotsSize(string id, int newSize);
+        Task ChangeSlotsSize(string id, int newSize);
 
         /// <summary>
         /// A method for getting machine by id

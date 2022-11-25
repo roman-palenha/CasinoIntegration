@@ -1,7 +1,8 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Request;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Response;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 
-namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
+namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces
 {
     public interface IPlayerService
     {

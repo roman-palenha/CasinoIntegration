@@ -1,4 +1,4 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Response;
 using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
 using System.Net;
 
@@ -10,8 +10,8 @@ namespace CasinoIntegration.API.CasinoIntegrations.Middlewares
         private readonly ILoggerManager _logger;
         public ExceptionMiddleware(RequestDelegate next, ILoggerManager logger)
         {
-            _logger = logger;
-            _next = next;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         /// <summary>

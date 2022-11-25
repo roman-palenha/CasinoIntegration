@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Request;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
 
 namespace CasinoIntegration.BusinessLayer

@@ -1,5 +1,5 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
-using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Request;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CasinoIntegration.API.Controllers
@@ -13,8 +13,8 @@ namespace CasinoIntegration.API.Controllers
 
         public PlayerController(IPlayerService playerService, IMachineService machineService)
         {
-            _playerService = playerService;
-            _machineService = machineService;
+            _playerService = playerService ?? throw new ArgumentNullException(nameof(playerService));
+            _machineService = machineService ?? throw new ArgumentNullException(nameof(machineService));
         }   
 
         /// <summary>

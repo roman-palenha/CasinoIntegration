@@ -1,10 +1,10 @@
 ﻿using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
-using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories
+namespace CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories
 {
     public class MachineRepository : IMachineRepository
     {

@@ -1,5 +1,5 @@
 ﻿using CasinoIntegration.API.CasinoIntegrations.Middlewares;
-using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Response;
 using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
@@ -12,7 +12,7 @@ namespace CasinoIntegration.API
         /// Extension for configuring exception handler
         /// </summary>
         /// <param name="app">Our application builder</param>
-        /// <param name="logger">Loggere where information will be logged</param>
+        /// <param name="logger">Logger where information will be logged</param>
         public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
         {
             app.UseExceptionHandler(appError =>

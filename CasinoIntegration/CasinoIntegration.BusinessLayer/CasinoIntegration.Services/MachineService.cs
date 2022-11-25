@@ -1,17 +1,18 @@
-﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+﻿using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
-using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces;
 
-namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
+namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Services
 {
     public class MachineService : IMachineService
     {
+        private const int MaxSpinValue = 9;
         private readonly IMachineRepository _machineRepository;
-
+        
         public MachineService(
           IMachineRepository machineRepository)
         {
-            _machineRepository = machineRepository;
+            _machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
         }
 
         public async Task<(int[], double)> TakeBet(string machineId, double bet)
@@ -30,26 +31,14 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return (resultArray,win);
         }
 
-        private int[] ReturnSlotsArray(Machine machine)
+        public async Task ChangeSlotsSize(string id, int newSize)
         {
-            Random randNum = new Random();
-
-            int[] slotsArray = Enumerable
-                .Repeat(0, machine.SlotsSize)
-                .Select(i => randNum.Next(0, 9))
-                .ToArray();
-
-            return slotsArray;
-        }
-      
-        public async Task ChangeMachineSlotsSize(string id, int newSize)
-        {
-            var machine = await GetById(id);
-
             if (newSize < 0)
             {
-                throw new ArgumentOutOfRangeException("Size cant be < 0");
+                throw new ArgumentOutOfRangeException("Slot size must be equal or greater than zero");
             }
+
+            var machine = await GetById(id);
 
             machine.SlotsSize = newSize;
 
@@ -77,6 +66,18 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
                 throw new ArgumentException("Wrong machine data");
 
             await _machineRepository.Create(machine);
+        }
+
+        private int[] ReturnSlotsArray(Machine machine)
+        {
+            Random randNum = new Random();
+
+            int[] slotsArray = Enumerable
+                .Repeat(0, machine.SlotsSize)
+                .Select(i => randNum.Next(0, MaxSpinValue))
+                .ToArray();
+
+            return slotsArray;
         }
     }
 }

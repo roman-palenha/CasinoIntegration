@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
-using CasinoIntegration.BusinessLayer.CasinoIntegrationDTO;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Request;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.DTO.Response;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
-using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.Repositories.Interfaces;
 
-namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
+namespace CasinoIntegration.BusinessLayer.CasinoIntegration.Services
 {
     public class PlayerService : IPlayerService
     {
@@ -14,13 +15,13 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
         public PlayerService(
            IPlayerRepository playersRepository, IMapper mapper)
         {
-            _playersRepository = playersRepository;
-            _mapper = mapper;
+            _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<SpinResult> ConfirmResultBet(int[] resultArray, double afterBetBalance, double win, string username)
+        public async Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username)
         {
-            var afterWinBalance = afterBetBalance + win;
+            var afterWinBalance = balanceWithBet + win;
             await UpdateBalanceAsync(username, afterWinBalance);
 
             return new SpinResult { Slots = resultArray, Balance = afterWinBalance, Win = win };
@@ -31,13 +32,13 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             var user = await _playersRepository.GetByNameAsync(username);
             if (user == null)
             {
-                throw new InvalidDataException("User not found");
+                throw new InvalidDataException($"There are no users with the username: {username}");
             }
 
             var newBalance = user.Balance - bet;
             if (newBalance < 0)
             {
-                throw new InvalidOperationException("Negative balance");
+                throw new InvalidOperationException("User cannot have a negative balance");
             }
 
             return newBalance;
@@ -46,10 +47,10 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
         public async Task<Player> CreateAsync(PlayerDTO playerDto)
         {
             if (await GetByNameAsync(playerDto.UserName) != null)
-                throw new ArgumentException("There is a user with same username");
+                throw new ArgumentException($"There are no users with the username: {playerDto.UserName}");
 
             if (playerDto.Balance < 0)
-                throw new ArgumentException("Cannot be a user with negative balance");
+                throw new ArgumentException("User cannot have a negative balance");
 
             var player = _mapper.Map<Player>(playerDto);
             await _playersRepository.CreateAsync(player);
@@ -59,7 +60,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
         public async Task DeleteAsync(Player player)
         {
             if (GetByNameAsync(player.UserName) == null)
-                throw new ArgumentException("There is not a user with same username");
+                throw new ArgumentException($"There are no users with the username: {player.UserName}");
 
             await _playersRepository.DeleteAsync(player);
         }
@@ -82,10 +83,10 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
         {
             var player = await GetByNameAsync(username);
             if (player == null)
-                throw new ArgumentException("There is not a user with same username");
+                throw new ArgumentException($"There are no users with the username: {username}");
 
             if (balance < 0)
-                throw new ArgumentException("Negative balance");
+                throw new ArgumentException("User cannot have a negative balance");
 
             player.Balance = balance;
 
