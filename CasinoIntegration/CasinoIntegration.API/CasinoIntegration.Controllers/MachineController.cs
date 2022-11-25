@@ -15,6 +15,10 @@ namespace CasinoIntegration.API.Controllers
             _machineService = machineService;
         }
 
+        /// <summary>
+        /// Action for getting all machines
+        /// </summary>
+        /// <returns>An enumerable of all machines</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -22,6 +26,12 @@ namespace CasinoIntegration.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Action for changing machines size of slots array
+        /// </summary>
+        /// <param name="id">the id of machine to be changed</param>
+        /// <param name="newSize">the new size of slots</param>
+        /// <returns>an Ok response</returns>
         [HttpPut]
         public async Task<IActionResult> ChangeMachine([FromBody] string id, int newSize)
         {
@@ -29,6 +39,11 @@ namespace CasinoIntegration.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Action for creating machine
+        /// </summary>
+        /// <param name="slotsSize">the integer size of slots array</param>
+        /// <returns>an Ok response</returns>
         [HttpPost]
         public async Task<IActionResult> CreateMachine(int slotsSize)
         {
