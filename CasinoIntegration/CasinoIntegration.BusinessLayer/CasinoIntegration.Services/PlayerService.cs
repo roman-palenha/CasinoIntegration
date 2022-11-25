@@ -27,14 +27,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Confirming result of player`s bet
-        /// </summary>
-        /// <param name="resultArray">Our resut array of machine</param>
-        /// <param name="afterBetBalance">Balance after bet</param>
-        /// <param name="win">Player`s win</param>
-        /// <param name="username">Username of player</param>
-        /// <returns>Spin result of player</returns>
         public async Task<SpinResult> ConfirmResultBet(int[] resultArray, double afterBetBalance, double win, string username)
         {
             var afterWinBalance = afterBetBalance + win;
@@ -43,14 +35,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return new SpinResult { Slots = resultArray, Balance = afterWinBalance, Win = win };
         }
 
-        /// <summary>
-        /// Method to make a bet
-        /// </summary>
-        /// <param name="username">Player`s username</param>
-        /// <param name="bet">Player`s bet</param>
-        /// <returns>Balance after bet</returns>
-        /// <exception cref="InvalidDataException">Exception if user is not found</exception>
-        /// <exception cref="InvalidOperationException">Exception if balance is negative</exception>
         public async Task<double> Bet(string username, double bet)
         {
             var user = await _playersRepository.GetByNameAsync(username);
@@ -68,12 +52,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return newBalance;
         }
 
-        /// <summary>
-        /// Method to create player
-        /// </summary>
-        /// <param name="playerDto">Player`s dto</param>
-        /// <returns>Created player</returns>
-        /// <exception cref="ArgumentException">Exception if player is not valid</exception>
         public async Task<Player> CreateAsync(PlayerDTO playerDto)
         {
             if (await GetByNameAsync(playerDto.UserName) != null)
@@ -87,12 +65,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return player;
         }
 
-        /// <summary>
-        /// Method to delete a player
-        /// </summary>
-        /// <param name="player">Player to delete</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Exception if there is not a such player</exception>
         public async Task DeleteAsync(Player player)
         {
             if (GetByNameAsync(player.UserName) == null)
@@ -101,10 +73,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             await _playersRepository.DeleteAsync(player);
         }
 
-        /// <summary>
-        /// Method to get all players
-        /// </summary>
-        /// <returns>List of players</returns>
         public async Task<IEnumerable<Player>> GetAllAsync()
         {
             var result = await _playersRepository.GetAllAsync();
@@ -112,11 +80,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return result;
         }
 
-        /// <summary>
-        /// Method to get player by name
-        /// </summary>
-        /// <param name="username">Player`s username</param>
-        /// <returns>Found player</returns>
         public async Task<Player> GetByNameAsync(string username)
         { 
             var result = await _playersRepository.GetByNameAsync(username);
@@ -124,13 +87,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return result;
         }
 
-        /// <summary>
-        /// Method to update player`s balance
-        /// </summary>
-        /// <param name="username">Needed player`s username</param>
-        /// <param name="balance">New balance of player</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Exception if params are not valid</exception>
         public async Task UpdateBalanceAsync(string username, double balance)
         {
             var player = await GetByNameAsync(username);
