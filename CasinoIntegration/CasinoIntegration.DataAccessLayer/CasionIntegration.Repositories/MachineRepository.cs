@@ -25,7 +25,7 @@ namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories
                 casinoIntegrationDatabaseSettings.Value.DatabaseName);
 
             _machineCollection = mongoDatabase.GetCollection<Machine>(
-            casinoIntegrationDatabaseSettings.Value.PlayersCollectionName);
+            casinoIntegrationDatabaseSettings.Value.MachinesCollectionName);
         }
 
         public async Task Create(Machine machine)

@@ -1,20 +1,31 @@
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
-using CasinoIntegration.BusinessLayer.CasinoInegration.Services;
-using Microsoft.Extensions.Options;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
-using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings.Interfaces;
 using AutoMapper;
 using CasinoIntegration.BusinessLayer;
+using CasinoIntegration.BusinessLayer.CasinoInegration.Services;
+using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger.Interfaces;
+using CasinoIntegration.BusinessLayer.CasinoIntegration.Logger;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
+using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings.Interfaces;
+using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories;
+using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
+using Microsoft.Extensions.Options;
+using NLog;
+using CasinoIntegration.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
 builder.Services.Configure<CasinoIntegrationDatabaseSettings>(
     builder.Configuration.GetSection(nameof(CasinoIntegrationDatabaseSettings)));
 
 builder.Services.AddSingleton<ICasinoIntegrationDatabaseSettings>(provider =>
     provider.GetRequiredService<IOptions<CasinoIntegrationDatabaseSettings>>().Value);
 
+builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
+
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IMachineRepository, MachineRepository>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IMachineService, MachineService>();
 
@@ -27,13 +38,15 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureCustomExceptionMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

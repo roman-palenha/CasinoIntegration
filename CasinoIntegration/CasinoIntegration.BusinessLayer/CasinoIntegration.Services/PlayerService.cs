@@ -32,7 +32,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return new SpinResult { Slots = resultArray, Balance = afterWinBalance, Win = win };
         }
 
-        public async Task<double> Bet(string username, double bets)
+        public async Task<double> Bet(string username, double bet)
         {
             var user = await _playersRepository.GetByNameAsync(username);
             if (user == null)

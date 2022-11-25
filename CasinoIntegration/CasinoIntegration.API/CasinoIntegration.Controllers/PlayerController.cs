@@ -31,30 +31,16 @@ namespace CasinoIntegration.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(PlayerDTO registerPlayer)
         {
-            try
-            {
-                var player = _mapper.Map<Player>(registerPlayer);
-                await _playerService.CreateAsync(player);
-                return Ok(player);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var player = _mapper.Map<Player>(registerPlayer);
+            await _playerService.CreateAsync(player);
+            return Ok(player);
         }
 
         [HttpPut("{username}")]
         public async Task<IActionResult> UpdateBalance(string username, [FromBody] double balance)
         {
-            try
-            {
-                await _playerService.UpdateBalanceAsync(username, balance);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _playerService.UpdateBalanceAsync(username, balance);
+            return Ok();
         }
 
         [HttpGet]

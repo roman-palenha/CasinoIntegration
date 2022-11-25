@@ -16,6 +16,6 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
         Task UpdateBalanceAsync(string username, double balance);
         Task DeleteAsync(Player player);
         Task<double> Bet(string username, double bet);
-        Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username)
+        Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username);
     }
 }

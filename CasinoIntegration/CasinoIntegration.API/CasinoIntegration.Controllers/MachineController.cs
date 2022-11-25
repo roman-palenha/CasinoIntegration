@@ -25,32 +25,15 @@ namespace CasinoIntegration.API.Controllers
         [HttpPut]
         public async Task<IActionResult> ChangeMachine([FromBody] string id, int newSize)
         {
-            try
-            {
-                await _machineService.ChangeMachineSlotsSize(id, newSize);
-            }
-
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            await _machineService.ChangeMachineSlotsSize(id, newSize);
             return Ok();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateMachine(int slotsSize)
         {
-            try
-            {
-                await _machineService.Create(new Machine { SlotsSize = slotsSize });
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            await _machineService.Create(new Machine { SlotsSize = slotsSize });
+            return Ok();
         }
     }
 }
