@@ -28,20 +28,12 @@ namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories
             casinoIntegrationDatabaseSettings.Value.MachinesCollectionName);
         }
 
-        /// <summary>
-        /// Method for inserting a machine object to db
-        /// </summary>
-        /// <param name="machine"></param>
-        /// <returns></returns>
         public async Task Create(Machine machine)
         {
             await _machineCollection.InsertOneAsync(machine);
         }
 
-        /// <summary>
-        /// Method for getting all machines from db
-        /// </summary>
-        /// <returns>Enumerable of machines</returns>
+       
         public async Task<IEnumerable<Machine>> GetAllAsync()
         {
             var result = await _machineCollection.Find(_ => true).ToListAsync();
@@ -49,11 +41,7 @@ namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories
             return result;
         }
 
-        /// <summary>
-        /// Method for getting machine by id
-        /// </summary>
-        /// <param name="id">Id of machine</param>
-        /// <returns>Object of type machine</returns>
+      
         public async Task<Machine> GetById(string id)
         {
             var result = await _machineCollection
@@ -63,11 +51,7 @@ namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories
             return result;
         }
 
-        /// <summary>
-        /// Method for updating a machine in database
-        /// </summary>
-        /// <param name="machine">Object of type machine to be updated</param>
-        /// <returns></returns>
+       
         public async Task Update(Machine machine)
         {
             await _machineCollection.ReplaceOneAsync(x => x.Id.Equals(machine.Id), machine);
