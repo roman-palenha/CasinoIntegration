@@ -1,6 +1,7 @@
 ﻿using CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.DatabaseSettings;
 using CasinoIntegration.DataAccessLayer.CasinoIntegration.Entities;
+using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -14,19 +15,12 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 {
     public class PlayerService : IPlayerService
     {
-        private readonly IMongoCollection<Player> _playersCollection;
+        private readonly IPlayerRepository _playersRepository;
 
         public PlayerService(
-           IOptions<CasinoIntegrationDatabaseSettings> slotMachineDatabaseSettings)
+           IPlayerRepository playersRepository)
         {
-            var mongoClient = new MongoClient(
-                slotMachineDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                slotMachineDatabaseSettings.Value.DatabaseName);
-
-            _playersCollection = mongoDatabase.GetCollection<Player>(
-            slotMachineDatabaseSettings.Value.PlayersCollectionName);
+            _playersRepository = playersRepository;
         }
 
         public async Task CreateAsync(Player player)
@@ -37,7 +31,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             if (player.Balance < 0)
                 throw new ArgumentException("Cannot be a user with negative balance");
 
-            await _playersCollection.InsertOneAsync(player);
+            await _playersRepository.CreateAsync(player);
         }
 
         public async Task DeleteAsync(Player player)
@@ -45,20 +39,19 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             if (GetByNameAsync(player.UserName) == null)
                 throw new ArgumentException("There is not a user with same username");
 
-            await _playersCollection.DeleteOneAsync(x => x.UserName.ToLower().Equals(player.UserName.ToLower()));
+            await _playersRepository.DeleteAsync(player);
         }
 
         public async Task<IEnumerable<Player>> GetAllAsync()
         {
-            var result = await _playersCollection.Find(_ => true).ToListAsync();
+            var result = await _playersRepository.GetAllAsync();
 
             return result;
         }
 
         public async Task<Player?> GetByNameAsync(string username)
-        {
-            var foundUsers = await _playersCollection.FindAsync(x => x.UserName.Equals(username));
-            var result = await foundUsers.FirstOrDefaultAsync();
+        { 
+            var result = await _playersRepository.GetByNameAsync(username);
 
             return result;
         }
@@ -74,7 +67,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 
             player.Balance = balance;
 
-            await _playersCollection.ReplaceOneAsync(x => x.UserName.Equals(username), player);
+            await _playersRepository.UpdateAsync(player);
         }
     }
 }

@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services.Interfaces
+namespace CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces
 {
-    public interface IMachineService
+    public interface IMachineRepository
     {
-        Task ChangeMachineSlotsSize(string id, int newSize);
-        int[] ReturnSlotsArray(Machine machine);
         Task<Machine> GetById(string id);
         Task Create(Machine machine);
+        Task Update(Machine machine);
         Task<IEnumerable<Machine>> GetAllAsync();
     }
 }

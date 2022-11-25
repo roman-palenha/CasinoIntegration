@@ -8,24 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using CasinoIntegration.DataAccessLayer.CasionIntegration.Repositories.Interfaces;
 
 namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 {
     public class MachineService : IMachineService
     {
-        private readonly IMongoCollection<Machine> _machineCollection;
+        private readonly IMachineRepository _machineRepository;
 
         public MachineService(
-          IOptions<CasinoIntegrationDatabaseSettings> slotMachineDatabaseSettings)
+          IMachineRepository machineRepository)
         {
-            var mongoClient = new MongoClient(
-                slotMachineDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                slotMachineDatabaseSettings.Value.DatabaseName);
-
-            _machineCollection = mongoDatabase.GetCollection<Machine>(
-            slotMachineDatabaseSettings.Value.MachinesCollectionName);
+            _machineRepository = machineRepository;
         }
 
         public int[] ReturnSlotsArray(Machine machine)
@@ -40,7 +34,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             return slotsArray;
         }
 
-        public async Task changeMachineSlotsSize(string id, int newSize)
+        public async Task ChangeMachineSlotsSize(string id, int newSize)
         {
             var machine = await GetById(id);
 
@@ -51,21 +45,19 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
 
             machine.SlotsSize = newSize;
 
-            await _machineCollection.ReplaceOneAsync(x => x.Id.Equals(machine.Id), machine);
+            await _machineRepository.Update(machine);
         }
 
         public async Task<Machine> GetById(string id)
         {
-            var result = await _machineCollection
-                    .Find(x => x.Id.Equals(id))
-                    .FirstOrDefaultAsync();
+            var result = await _machineRepository.GetById(id);
 
             return result;
         }
 
         public async Task<IEnumerable<Machine>> GetAllAsync()
         {
-            var result = await _machineCollection.Find(_ => true).ToListAsync();
+            var result = await _machineRepository.GetAllAsync();
 
             return result;
         }
@@ -75,7 +67,7 @@ namespace CasinoIntegration.BusinessLayer.CasinoInegration.Services
             if (machine == null || machine.SlotsSize < 0)
                 throw new ArgumentException("Wrong machine data");
 
-            await _machineCollection.InsertOneAsync(machine);
+            await _machineRepository.Create(machine);
         }
     }
 }

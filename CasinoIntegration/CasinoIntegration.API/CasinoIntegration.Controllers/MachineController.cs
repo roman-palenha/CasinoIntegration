@@ -27,7 +27,7 @@ namespace CasinoIntegration.API.Controllers
         {
             try
             {
-                await _machineService.changeMachineSlotsSize(id, newSize);
+                await _machineService.ChangeMachineSlotsSize(id, newSize);
             }
 
             catch (Exception ex)
