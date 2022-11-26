@@ -31,7 +31,7 @@ namespace CasinoIntegration.API.Controllers
         /// Action for changing machines size of slots array
         /// </summary>
         /// <param name="id">the id of machine to be changed</param>
-        /// <param name="newSize">the new size of slots</param>
+        /// <param name="machineSlotSize">dto with new SlotSize parameter</param>
         /// <returns>an Ok response</returns>
         [HttpPut]
         public async Task<IActionResult> ChangeMachine([FromQuery] string id, MachineSlotSizeDTO machineSlotSize)
