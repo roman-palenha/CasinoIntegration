@@ -30,8 +30,8 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <summary>
         /// Method to update player`s balance
         /// </summary>
-        /// <param name="username">Needed player`s username</param>
-        /// <param name="playerBalance">Dto which contain new balance of player</param>
+        /// <param name="username">Player`s username</param>
+        /// <param name="playerBalance">New balance of player</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Exception if params are not valid</exception>
         Task UpdateBalanceAsync(string username, PlayerBalanceDTO playerBalance);
@@ -40,7 +40,7 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <summary>
         /// Method to delete a player
         /// </summary>
-        /// <param name="player">Player to delete</param>
+        /// <param name="player">Player</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Exception if there is not a such player</exception>
         Task DeleteAsync(Player player);
@@ -59,8 +59,8 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <summary>
         /// Confirming result of player`s bet
         /// </summary>
-        /// <param name="resultArray">Our resut array of machine</param>
-        /// <param name="afterBetBalance">Balance after bet</param>
+        /// <param name="resultArray">Resut slots array of machine</param>
+        /// <param name="balanceWithBet">Balance with bet</param>
         /// <param name="win">Player`s win</param>
         /// <param name="username">Player`s username</param>
         /// <returns>Spin result of player</returns>
