@@ -1,4 +1,5 @@
-﻿using CasinoIntegration.BusinessLayer.Services.Interfaces;
+﻿using CasinoIntegration.BusinessLayer.DTO.Request;
+using CasinoIntegration.BusinessLayer.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +34,9 @@ namespace CasinoIntegration.API.Controllers
         /// <param name="newSize">the new size of slots</param>
         /// <returns>an Ok response</returns>
         [HttpPut]
-        public async Task<IActionResult> ChangeMachine(Machine machine)
+        public async Task<IActionResult> ChangeMachine([FromQuery] string id, MachineSlotSizeDTO machine)
         {
-            await _machineService.ChangeSlotsSize(machine.Id, machine.SlotSize);
+            await _machineService.ChangeSlotsSize(id, machine.SlotSize);
             return Ok();
         }
 

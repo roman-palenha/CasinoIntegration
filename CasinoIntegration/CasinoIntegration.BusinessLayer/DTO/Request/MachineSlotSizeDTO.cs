@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CasinoIntegration.BusinessLayer.DTO.Request
 {
-    public class MachineDTO
+    public class MachineSlotSizeDTO
     {
-        public string Id { get; set; }
         public int SlotSize { get; set; }
     }
 }
