@@ -47,7 +47,7 @@ namespace CasinoIntegration.BusinessLayer.Services
         public async Task<Player> CreateAsync(PlayerDTO playerDto)
         {
             if (await GetByNameAsync(playerDto.UserName) != null)
-                throw new ArgumentException($"There are no users with the username: {playerDto.UserName}");
+                throw new ArgumentException($"There are users with the username: {playerDto.UserName}");
 
             if (playerDto.Balance < 0)
                 throw new ArgumentException("User cannot have a negative balance");
