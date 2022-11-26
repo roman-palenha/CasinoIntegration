@@ -8,21 +8,21 @@ namespace CasinoIntegration.DataAccessLayer.Repositories.Interfaces
         /// <summary>
         /// Method for getting machine by id
         /// </summary>
-        /// <param name="id">Id of machine</param>
-        /// <returns>Object of type machine</returns>
+        /// <param name="id">Machine Id</param>
+        /// <returns>Machine</returns>
         Task<Machine> GetById(string id);
 
         /// <summary>
         /// Method for inserting a machine object to db
         /// </summary>
-        /// <param name="machine"></param>
+        /// <param name="machine">Machine to craete</param>
         /// <returns></returns>
         Task Create(Machine machine);
 
         /// <summary>
         /// Method for updating a machine in database
         /// </summary>
-        /// <param name="machine">Object of type machine to be updated</param>
+        /// <param name="machine">Machine to update</param>
         /// <returns></returns>
         Task Update(Machine machine);
 
