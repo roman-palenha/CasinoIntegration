@@ -8,6 +8,6 @@ namespace CasinoIntegration.DataAccessLayer.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public int SlotsSize { get; set; }
+        public int SlotSize { get; set; }
     }
 }

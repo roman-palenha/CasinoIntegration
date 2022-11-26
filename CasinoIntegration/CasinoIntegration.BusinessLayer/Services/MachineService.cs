@@ -46,7 +46,7 @@ namespace CasinoIntegration.BusinessLayer.Services
             if(machine == null)
                 throw new InvalidDataException($"There are no machine with the id: {id}");
 
-            machine.SlotsSize = newSize;
+            machine.SlotSize = newSize;
 
             await _machineRepository.Update(machine);
         }
@@ -68,7 +68,7 @@ namespace CasinoIntegration.BusinessLayer.Services
 
         public async Task Create(Machine machine)
         {
-            if (machine == null || machine.SlotsSize < 0)
+            if (machine == null || machine.SlotSize < 0)
                 throw new ArgumentException("Wrong machine data");
 
             await _machineRepository.Create(machine);

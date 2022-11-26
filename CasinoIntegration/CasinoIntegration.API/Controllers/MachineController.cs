@@ -47,7 +47,7 @@ namespace CasinoIntegration.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMachine(int slotSize)
         {
-            await _machineService.Create(new Machine { SlotsSize = slotSize });
+            await _machineService.Create(new Machine { SlotSize = slotSize });
             return Ok();
         }
     }
