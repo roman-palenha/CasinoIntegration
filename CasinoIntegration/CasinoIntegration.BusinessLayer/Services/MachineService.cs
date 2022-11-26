@@ -82,7 +82,7 @@ namespace CasinoIntegration.BusinessLayer.Services
             var randNum = new Random();
 
             var slotsArray = Enumerable
-                .Repeat(0, machine.SlotsSize)
+                .Repeat(0, machine.SlotSize)
                 .Select(i => randNum.Next(0, MaxSpinValue))
                 .ToArray();
 
