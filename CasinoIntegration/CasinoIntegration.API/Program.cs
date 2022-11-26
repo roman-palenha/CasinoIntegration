@@ -31,7 +31,7 @@ builder.Services.AddScoped<IMachineService, MachineService>();
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
-    mc.AddProfile(new Mappers());
+    mc.AddProfile(new CasinoIntegrationMapperProfile());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();

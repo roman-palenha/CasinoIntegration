@@ -3,6 +3,7 @@ using CasinoIntegration.DataAccessLayer.Entities;
 using CasinoIntegration.DataAccessLayer.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Authentication;
 
 namespace CasinoIntegration.DataAccessLayer.Repositories
 {
@@ -25,11 +26,17 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
 
         public async Task CreateAsync(Player player)
         {
+            if(player == null)
+                throw new ArgumentNullException(nameof(player));
+
             await _playersCollection.InsertOneAsync(player);
         }
 
         public async Task DeleteAsync(Player player)
         {
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
             await _playersCollection.DeleteOneAsync(x => x.UserName.ToLower().Equals(player.UserName.ToLower()));
         }
 
@@ -40,6 +47,9 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
 
         public async Task<Player> GetByNameAsync(string username)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username can`t be null or white space");
+
             var foundUsers = await _playersCollection.FindAsync(x => x.UserName.Equals(username));
             var result = await foundUsers.FirstOrDefaultAsync();
 
@@ -48,6 +58,9 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
 
         public async Task UpdateAsync(Player player)
         {
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
             await _playersCollection.ReplaceOneAsync(x => x.UserName.Equals(player.UserName), player);
         }
     }

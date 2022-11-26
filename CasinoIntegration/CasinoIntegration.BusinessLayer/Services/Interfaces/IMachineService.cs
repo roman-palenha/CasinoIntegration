@@ -1,4 +1,5 @@
-﻿using CasinoIntegration.DataAccessLayer.Entities;
+﻿using CasinoIntegration.BusinessLayer.DTO.Models;
+using CasinoIntegration.DataAccessLayer.Entities;
 
 namespace CasinoIntegration.BusinessLayer.Services.Interfaces
 {
@@ -40,6 +41,6 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <param name="machineId">machine id on which to place the bet</param>
         /// <param name="bet">the sum of bet to be placed on machine</param>
         /// <returns>Tuple with the resulting array after spin of machine, and users win</returns>
-        Task<(int[],double)> TakeBet(string machineId, double bet);
+        Task<BetResult> TakeBet(string machineId, double bet);
     }
 }

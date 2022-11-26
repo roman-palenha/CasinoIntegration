@@ -33,7 +33,7 @@ namespace CasinoIntegration.API.Controllers
         /// <param name="newSize">the new size of slots</param>
         /// <returns>an Ok response</returns>
         [HttpPut]
-        public async Task<IActionResult> ChangeMachine([FromBody] string id, int newSize)
+        public async Task<IActionResult> ChangeMachine([FromQuery] string id,[FromBody] int newSize)
         {
             await _machineService.ChangeSlotsSize(id, newSize);
             return Ok();
@@ -42,12 +42,12 @@ namespace CasinoIntegration.API.Controllers
         /// <summary>
         /// Action for creating machine
         /// </summary>
-        /// <param name="slotsSize">the integer size of slots array</param>
+        /// <param name="slotSize">the integer size of slots array</param>
         /// <returns>an Ok response</returns>
         [HttpPost]
-        public async Task<IActionResult> CreateMachine(int slotsSize)
+        public async Task<IActionResult> CreateMachine(int slotSize)
         {
-            await _machineService.Create(new Machine { SlotsSize = slotsSize });
+            await _machineService.Create(new Machine { SlotsSize = slotSize });
             return Ok();
         }
     }

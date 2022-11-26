@@ -4,9 +4,9 @@ using CasinoIntegration.DataAccessLayer.Entities;
 
 namespace CasinoIntegration.BusinessLayer
 {
-    public class Mappers: Profile
+    public class CasinoIntegrationMapperProfile: Profile
     {
-        public Mappers()
+        public CasinoIntegrationMapperProfile()
         {
             CreateMap<PlayerDTO, Player>().ReverseMap();
         }

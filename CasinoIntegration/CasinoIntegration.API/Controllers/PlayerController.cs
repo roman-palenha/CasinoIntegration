@@ -66,7 +66,7 @@ namespace CasinoIntegration.API.Controllers
         {
             var balanceWithBet = await _playerService.Bet(username, bet);
             var betResult = await _machineService.TakeBet(machineId, bet);
-            var result = await _playerService.ConfirmResultBet(betResult.Item1, balanceWithBet, betResult.Item2, username);
+            var result = await _playerService.ConfirmResultBet(betResult.ResultArray, balanceWithBet, betResult.Win, username);
 
             return Ok(result);
         }

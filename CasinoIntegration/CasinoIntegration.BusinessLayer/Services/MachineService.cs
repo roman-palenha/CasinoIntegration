@@ -1,5 +1,7 @@
-﻿using CasinoIntegration.BusinessLayer.Services.Interfaces;
+﻿using CasinoIntegration.BusinessLayer.DTO.Models;
+using CasinoIntegration.BusinessLayer.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.Entities;
+using CasinoIntegration.DataAccessLayer.Repositories;
 using CasinoIntegration.DataAccessLayer.Repositories.Interfaces;
 
 namespace CasinoIntegration.BusinessLayer.Services
@@ -15,30 +17,34 @@ namespace CasinoIntegration.BusinessLayer.Services
             _machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
         }
 
-        public async Task<(int[], double)> TakeBet(string machineId, double bet)
+        public async Task<BetResult> TakeBet(string machineId, double bet)
         {
             var machine = await _machineRepository.GetById(machineId);
+            if (machine == null)
+                throw new InvalidDataException($"There are no machine with the id: {machineId}");
 
             var resultArray = ReturnSlotsArray(machine);
+            if (resultArray.Length <= 0)
+                throw new InvalidDataException("Slot array can`t have a size equal or lower than 0");
 
             var firstNumFromArray = resultArray[0];
 
             var win = resultArray
                 .TakeWhile(x => x == firstNumFromArray)
-                .Sum(x => x)
+                .Sum(x => x)    
                 * bet;
 
-            return (resultArray,win);
+            return new BetResult { ResultArray = resultArray, Win = win};
         }
 
         public async Task ChangeSlotsSize(string id, int newSize)
         {
             if (newSize < 0)
-            {
                 throw new ArgumentOutOfRangeException("Slot size must be equal or greater than zero");
-            }
 
             var machine = await GetById(id);
+            if(machine == null)
+                throw new InvalidDataException($"There are no machine with the id: {id}");
 
             machine.SlotsSize = newSize;
 
@@ -70,9 +76,12 @@ namespace CasinoIntegration.BusinessLayer.Services
 
         private int[] ReturnSlotsArray(Machine machine)
         {
-            Random randNum = new Random();
+            if (machine == null)
+                throw new ArgumentNullException(nameof(machine));
+            
+            var randNum = new Random();
 
-            int[] slotsArray = Enumerable
+            var slotsArray = Enumerable
                 .Repeat(0, machine.SlotsSize)
                 .Select(i => randNum.Next(0, MaxSpinValue))
                 .ToArray();

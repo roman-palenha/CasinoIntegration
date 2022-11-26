@@ -25,6 +25,9 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
 
         public async Task Create(Machine machine)
         {
+            if(machine == null)
+                throw new ArgumentNullException(nameof(machine));
+
             await _machineCollection.InsertOneAsync(machine);
         }
 
@@ -39,6 +42,9 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
       
         public async Task<Machine> GetById(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentException("Id can`t be null or white space");
+
             var result = await _machineCollection
                     .Find(x => x.Id.Equals(id))
                     .FirstOrDefaultAsync();
@@ -49,6 +55,9 @@ namespace CasinoIntegration.DataAccessLayer.Repositories
        
         public async Task Update(Machine machine)
         {
+            if (machine == null)
+                throw new ArgumentNullException(nameof(machine));
+
             await _machineCollection.ReplaceOneAsync(x => x.Id.Equals(machine.Id), machine);
         }
     }
