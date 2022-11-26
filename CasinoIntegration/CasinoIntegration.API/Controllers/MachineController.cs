@@ -33,9 +33,9 @@ namespace CasinoIntegration.API.Controllers
         /// <param name="newSize">the new size of slots</param>
         /// <returns>an Ok response</returns>
         [HttpPut]
-        public async Task<IActionResult> ChangeMachine([FromQuery] string id,[FromBody] int newSize)
+        public async Task<IActionResult> ChangeMachine(Machine machine)
         {
-            await _machineService.ChangeSlotsSize(id, newSize);
+            await _machineService.ChangeSlotsSize(machine.Id, machine.SlotSize);
             return Ok();
         }
 
