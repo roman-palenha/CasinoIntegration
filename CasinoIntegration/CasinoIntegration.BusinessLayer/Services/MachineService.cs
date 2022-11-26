@@ -40,7 +40,7 @@ namespace CasinoIntegration.BusinessLayer.Services
 
             var machine = await GetById(id);
 
-            machine.SlotsSize = newSize;
+            machine.SlotSize = newSize;
 
             await _machineRepository.Update(machine);
         }
@@ -62,7 +62,7 @@ namespace CasinoIntegration.BusinessLayer.Services
 
         public async Task Create(Machine machine)
         {
-            if (machine == null || machine.SlotsSize < 0)
+            if (machine == null || machine.SlotSize < 0)
                 throw new ArgumentException("Wrong machine data");
 
             await _machineRepository.Create(machine);
@@ -73,7 +73,7 @@ namespace CasinoIntegration.BusinessLayer.Services
             Random randNum = new Random();
 
             int[] slotsArray = Enumerable
-                .Repeat(0, machine.SlotsSize)
+                .Repeat(0, machine.SlotSize)
                 .Select(i => randNum.Next(0, MaxSpinValue))
                 .ToArray();
 
