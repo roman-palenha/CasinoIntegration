@@ -31,7 +31,7 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// Method to update player`s balance
         /// </summary>
         /// <param name="username">Needed player`s username</param>
-        /// <param name="balance">New balance of player</param>
+        /// <param name="playerBalance">Dto which contain new balance of player</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Exception if params are not valid</exception>
         Task UpdateBalanceAsync(string username, PlayerBalanceDTO playerBalance);

@@ -1,4 +1,5 @@
 ﻿using CasinoIntegration.BusinessLayer.DTO.Models;
+using CasinoIntegration.BusinessLayer.DTO.Request;
 using CasinoIntegration.DataAccessLayer.Entities;
 
 namespace CasinoIntegration.BusinessLayer.Services.Interfaces
@@ -9,10 +10,10 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// Method for changing machine SlotSize parameter
         /// </summary>
         /// <param name="id">the id of machine to be changed</param>
-        /// <param name="newSize">the new size of machine</param>
+        /// <param name="machineSlotSize">dto whick contain the new size of machine</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        Task ChangeSlotsSize(string id, int newSize);
+        Task ChangeSlotsSize(string id, MachineSlotSizeDTO machineSlotSize);
 
         /// <summary>
         /// A method for getting machine by id

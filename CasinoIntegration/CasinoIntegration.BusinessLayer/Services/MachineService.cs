@@ -1,7 +1,7 @@
 ﻿using CasinoIntegration.BusinessLayer.DTO.Models;
+using CasinoIntegration.BusinessLayer.DTO.Request;
 using CasinoIntegration.BusinessLayer.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.Entities;
-using CasinoIntegration.DataAccessLayer.Repositories;
 using CasinoIntegration.DataAccessLayer.Repositories.Interfaces;
 
 namespace CasinoIntegration.BusinessLayer.Services
@@ -37,16 +37,20 @@ namespace CasinoIntegration.BusinessLayer.Services
             return new BetResult { ResultArray = resultArray, Win = win};
         }
 
-        public async Task ChangeSlotsSize(string id, int newSize)
+        public async Task ChangeSlotsSize(string id, MachineSlotSizeDTO machineSlotSize)
         {
-            if (newSize < 0)
+            if (machineSlotSize == null)
+                throw new ArgumentNullException(nameof(machineSlotSize));
+
+            var slotSize = machineSlotSize.SlotSize;
+            if (slotSize < 0)
                 throw new ArgumentOutOfRangeException("Slot size must be equal or greater than zero");
 
             var machine = await GetById(id);
             if(machine == null)
                 throw new InvalidDataException($"There are no machine with the id: {id}");
 
-            machine.SlotSize = newSize;
+            machine.SlotSize = slotSize;
 
             await _machineRepository.Update(machine);
         }
