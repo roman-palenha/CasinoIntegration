@@ -45,7 +45,7 @@ namespace CasinoIntegration.API.Middlewares
             await context.Response.WriteAsync(new ErrorDetails()
             {
                 StatusCode = context.Response.StatusCode,
-                Message = exception.Message,
+                Message = $"Internal Server Error from the custom middleware. Exception: {exception.Message}",
             }.ToString());
         }
     }
