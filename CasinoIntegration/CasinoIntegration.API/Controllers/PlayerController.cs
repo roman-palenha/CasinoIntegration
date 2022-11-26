@@ -60,7 +60,7 @@ namespace CasinoIntegration.API.Controllers
         /// <param name="bet">Sum of bet</param>
         /// <param name="machineId">MachineId</param>
         /// <returns>Spin Result of bet</returns>
-        [HttpGet]
+        [HttpPost]
         [Route("{username}/{machineId}/{bet}")]
         public async Task<IActionResult> Bet([FromRoute] string username, double bet, string machineId)
         {
