@@ -25,10 +25,10 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <summary>
         /// Method for creating a machine 
         /// </summary>
-        /// <param name="machine">Machine</param>
+        /// <param name="machineDto">Machine</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        Task Create(Machine machine);
+        Task Create(MachineDTO machineDto);
 
         /// <summary>
         /// Method for getting all machines

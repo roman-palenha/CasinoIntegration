@@ -1,4 +1,5 @@
-﻿using CasinoIntegration.BusinessLayer.DTO.Models;
+﻿using AutoMapper;
+using CasinoIntegration.BusinessLayer.DTO.Models;
 using CasinoIntegration.BusinessLayer.DTO.Request;
 using CasinoIntegration.BusinessLayer.Services.Interfaces;
 using CasinoIntegration.DataAccessLayer.Entities;
@@ -10,11 +11,12 @@ namespace CasinoIntegration.BusinessLayer.Services
     {
         private const int MaxSpinValue = 9;
         private readonly IMachineRepository _machineRepository;
-        
+        private readonly IMapper _mapper;
         public MachineService(
-          IMachineRepository machineRepository)
+          IMachineRepository machineRepository, IMapper mapper)
         {
             _machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<BetResult> TakeBet(string machineId, double bet)
@@ -70,11 +72,12 @@ namespace CasinoIntegration.BusinessLayer.Services
             return result;
         }    
 
-        public async Task Create(Machine machine)
+        public async Task Create(MachineDTO machineDto)
         {
-            if (machine == null || machine.SlotSize < 0)
+            if (machineDto == null || machineDto.SlotSize < 0 || string.IsNullOrWhiteSpace(machineDto.Name))
                 throw new ArgumentException("Wrong machine data");
 
+            var machine = _mapper.Map<Machine>(machineDto);
             await _machineRepository.Create(machine);
         }
 

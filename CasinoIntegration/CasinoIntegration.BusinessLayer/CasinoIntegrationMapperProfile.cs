@@ -9,6 +9,7 @@ namespace CasinoIntegration.BusinessLayer
         public CasinoIntegrationMapperProfile()
         {
             CreateMap<PlayerDTO, Player>().ReverseMap();
+            CreateMap<MachineDTO, Machine>().ReverseMap();
         }
     }
 }
