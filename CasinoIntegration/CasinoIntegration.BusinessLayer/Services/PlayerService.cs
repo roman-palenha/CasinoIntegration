@@ -21,10 +21,10 @@ namespace CasinoIntegration.BusinessLayer.Services
 
         public async Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username)
         {
-            var afterWinBalance = balanceWithBet + win;
+            var afterWinBalance = new PlayerBalanceDTO { Balance = balanceWithBet + win };
             await UpdateBalanceAsync(username, afterWinBalance);
 
-            return new SpinResult { Slots = resultArray, Balance = afterWinBalance, Win = win };
+            return new SpinResult { Slots = resultArray, Balance = afterWinBalance.Balance, Win = win };
         }
 
         public async Task<double> Bet(string username, double bet)
@@ -79,12 +79,16 @@ namespace CasinoIntegration.BusinessLayer.Services
             return result;
         }
 
-        public async Task UpdateBalanceAsync(string username, double balance)
+        public async Task UpdateBalanceAsync(string username, PlayerBalanceDTO playerBalance)
         {
+            if (playerBalance == null)
+                throw new ArgumentNullException(nameof(playerBalance));
+
             var player = await GetByNameAsync(username);
             if (player == null)
                 throw new ArgumentException($"There are no users with the username: {username}");
 
+            var balance = playerBalance.Balance;
             if (balance < 0)
                 throw new ArgumentException("User cannot have a negative balance");
 
