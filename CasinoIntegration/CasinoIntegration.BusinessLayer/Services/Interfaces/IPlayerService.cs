@@ -62,7 +62,7 @@ namespace CasinoIntegration.BusinessLayer.Services.Interfaces
         /// <param name="resultArray">Our resut array of machine</param>
         /// <param name="afterBetBalance">Balance after bet</param>
         /// <param name="win">Player`s win</param>
-        /// <param name="username">Username of player</param>
+        /// <param name="username">Player`s username</param>
         /// <returns>Spin result of player</returns>
         Task<SpinResult> ConfirmResultBet(int[] resultArray, double balanceWithBet, double win, string username);
     }
