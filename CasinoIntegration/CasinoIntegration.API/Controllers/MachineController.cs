@@ -30,7 +30,7 @@ namespace CasinoIntegration.API.Controllers
         /// <summary>
         /// Action for changing machines size of slots array
         /// </summary>
-        /// <param name="id">the id of machine to be changed</param>
+        /// <param name="id">The machine id</param>
         /// <param name="machineSlotSize">dto with new SlotSize parameter</param>
         /// <returns>an Ok response</returns>
         [HttpPut]
@@ -43,7 +43,7 @@ namespace CasinoIntegration.API.Controllers
         /// <summary>
         /// Action for creating machine
         /// </summary>
-        /// <param name="slotSize">the integer size of slots array</param>
+        /// <param name="slotSize">The size of slots array</param>
         /// <returns>an Ok response</returns>
         [HttpPost]
         public async Task<IActionResult> CreateMachine(int slotSize)

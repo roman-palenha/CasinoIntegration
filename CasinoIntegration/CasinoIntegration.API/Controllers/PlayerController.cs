@@ -43,7 +43,7 @@ namespace CasinoIntegration.API.Controllers
         /// <summary>
         /// Action for updating player`s balance
         /// </summary>
-        /// <param name="username">Username of player</param>
+        /// <param name="username">Player's username</param>
         /// <param name="balance">New balance of player</param>
         /// <returns>Ok</returns>
         [HttpPut("{username}")]
@@ -56,7 +56,7 @@ namespace CasinoIntegration.API.Controllers
         /// <summary>
         /// Action for making bet
         /// </summary>
-        /// <param name="username">Player with username is making bet</param>
+        /// <param name="username">Player's username is making bet</param>
         /// <param name="bet">Sum of bet</param>
         /// <param name="machineId">MachineId to process bet</param>
         /// <returns>Spin Result of bet</returns>
