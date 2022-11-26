@@ -47,9 +47,9 @@ namespace CasinoIntegration.API.Controllers
         /// <param name="balance">New balance of player</param>
         /// <returns>Ok</returns>
         [HttpPut("{username}")]
-        public async Task<IActionResult> UpdateBalance(string username, [FromBody] double balance)
+        public async Task<IActionResult> UpdateBalance(string username, [FromBody] PlayerBalanceDTO playerBalance)
         {
-            await _playerService.UpdateBalanceAsync(username, balance);
+            await _playerService.UpdateBalanceAsync(username, playerBalance);
             return Ok();
         }
 
