@@ -1,5 +1,5 @@
 using AutoMapper;
-using CasinoIntegration.API;
+using CasinoIntegration.API.Extensions;
 using CasinoIntegration.BusinessLayer;
 using CasinoIntegration.BusinessLayer.Logger;
 using CasinoIntegration.BusinessLayer.Logger.Interfaces;
@@ -40,7 +40,10 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSwaggerDocumentation();
+});
 
 var app = builder.Build();
 

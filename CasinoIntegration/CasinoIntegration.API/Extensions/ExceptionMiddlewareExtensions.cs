@@ -4,7 +4,7 @@ using System.Net;
 using CasinoIntegration.BusinessLayer.DTO.Response;
 using CasinoIntegration.BusinessLayer.Logger.Interfaces;
 
-namespace CasinoIntegration.API
+namespace CasinoIntegration.API.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {
