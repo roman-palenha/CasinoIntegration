@@ -57,12 +57,11 @@ namespace CasinoIntegration.API.Controllers
         /// Action for making bet
         /// </summary>
         /// <param name="username">Player's username</param>
-        /// <param name="bet">Sum of bet</param>
-        /// <param name="machineId">MachineId</param>
+        /// <param name="betDTO">BetDto with bet and machineId</param>
         /// <returns>Spin Result of bet</returns>
         [HttpPost]
-        [Route("{username}/{MachineId}/{Bet}")]
-        public async Task<IActionResult> Bet([FromRoute] string username, [FromRoute] BetDTO betDTO)
+        [Route("{username}")]
+        public async Task<IActionResult> Bet([FromRoute] string username, [FromBody]BetDTO betDTO)
         {
             var balanceWithBet = await _playerService.Bet(username, betDTO.Bet);
             var betResult = await _machineService.TakeBet(betDTO.MachineId, betDTO.Bet);
